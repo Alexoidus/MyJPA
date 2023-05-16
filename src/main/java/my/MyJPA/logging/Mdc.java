@@ -23,7 +23,6 @@ public class Mdc implements Closeable {
 
     @Override
     public void close() {
-        log.info("closing Mdc");
         valuesKeys.forEach(MDC::remove);
         originalValuesMap.forEach(MDC::put);
     }

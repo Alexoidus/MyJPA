@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: MyJPA
+
+  output:
+    ansi:
+      enabled: always
+
+  jpa:
+    open-in-view: false
+    defer-datasource-initialization: true
+    properties:
+      hibernate.connection.provider_disables_autocommit: true
+
+  datasource:
+    url: jdbc:hsqldb:hsql://localhost/xdb
+  #spring.datasource.username=SA
+  #spring.datasource.password=
+  #spring.jpa.
+    hikari:
+      auto-commit: false
+
+  main:
+    lazy-initialization: true
+
+logging:
+  pattern:
+    console: '%clr(%d){faint} %clr(%5p) %clr([%t]){magenta} %clr(%logger){cyan} %clr(:){faint} %m%n'
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    #org.hibernate: TRACE
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.orm.jdbc.extract: TRACE
+#logging.level.org.springframework.boot.autoconfigure=DEBUG

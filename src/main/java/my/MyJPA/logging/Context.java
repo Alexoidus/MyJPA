@@ -1,4 +1,6 @@
-package my.MyJPA.repository;
+package my.MyJPA.logging;
+
+import my.MyJPA.repository.Info;
 
 import java.util.HashMap;
 import java.util.Map;

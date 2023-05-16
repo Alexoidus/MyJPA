@@ -2,12 +2,13 @@ package my.MyJPA.service;
 
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
+import my.MyJPA.dto.ArtistDTO;
+import my.MyJPA.exception.ObjectNotFoundException;
 import my.MyJPA.logging.Mdc;
+import my.MyJPA.mapper.ArtistMapper;
 import my.MyJPA.model.Artist;
 import my.MyJPA.repository.ArtistRepository;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,21 +18,25 @@ import java.util.Optional;
 @Service
 public class ArtistService {
 
-    @Autowired
-    private ArtistRepository artistRepository;
+    private final ArtistRepository artistRepository;
 
-    @Transactional
-    public void test() {
-        Long id = 1L;
+    private final ArtistMapper artistMapper;
 
-        @Cleanup
-        final var mdc = Mdc.put("app.artist.id", String.valueOf(id));
+    public ArtistService(ArtistRepository artistRepository, ArtistMapper artistMapper) {
+        this.artistRepository = artistRepository;
+        this.artistMapper = artistMapper;
+    }
+
+    @Transactional(readOnly = true)
+    public ArtistDTO getArtist(Long id) {
+        @Cleanup final var mdc = Mdc.put("app.artist.id", String.valueOf(id));
 
         log.info("MDC map: {}", MDC.getCopyOfContextMap());
 
         Optional<Artist> artistOptional = artistRepository.findById(id);
 
-        if (artistOptional.isPresent()) {
+
+        /*if (artistOptional.isPresent()) {
             Artist artist = artistOptional.get();
             log.info("Found artist: {}", artist);
             artist.setDescription(artist.getDescription());
@@ -46,9 +51,19 @@ public class ArtistService {
             artistRepository.save(artist);
 
             log.info("Created artist: {}", artist);
-        }
+        }*/
 
         log.info("End of method");
+
+        return artistMapper.entityToDto(artistOptional.orElseThrow(ObjectNotFoundException::new));
+    }
+
+    public void createArtist(ArtistDTO artistDTO) {
+        artistRepository.save(null);
+    }
+
+    public void updateArtist(ArtistDTO artistDTO) {
+        artistRepository.save(null);
     }
 
 }

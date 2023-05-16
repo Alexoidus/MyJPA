@@ -1,5 +1,7 @@
-package my.MyJPA.repository;
+package my.MyJPA.logging;
 
+import my.MyJPA.logging.Context;
+import my.MyJPA.repository.UserInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

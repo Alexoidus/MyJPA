@@ -10,9 +10,12 @@ spring.datasource.url=jdbc:hsqldb:hsql://localhost/xdb
 spring.datasource.hikari.auto-commit=false
 spring.jpa.properties.hibernate.connection.provider_disables_autocommit=true
 
+spring.main.lazy-initialization=true
+
 logging.pattern.console=%clr(%d){faint} %clr(%5p) %clr([%t]){magenta} %clr(%logger){cyan} %clr(:){faint} %m%n
 logging.level.root=INFO
 logging.level.org.hibernate.SQL=DEBUG
 #logging.level.org.hibernate=TRACE
 logging.level.org.hibernate.orm.jdbc.bind=TRACE
 logging.level.org.hibernate.orm.jdbc.extract=TRACE
+#logging.level.org.springframework.boot.autoconfigure=DEBUG
